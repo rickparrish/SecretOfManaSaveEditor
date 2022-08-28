@@ -86,7 +86,7 @@
         MoogleBelt,
         MinorMallet,
         Barrel,
-        Unknown,
+        // TODOY Unknown,
     }
 
     public enum ManaSeedType {
