@@ -26,6 +26,15 @@ namespace SavLibrary {
         internal int statusFlag;
         internal int level;
 
+        public int Experience {
+            get {
+                return EXP;
+            }
+            set {
+                EXP = value;
+            }
+        }
+
         public List<int> MagicExperience {
             get {
                 return magicEXP;
