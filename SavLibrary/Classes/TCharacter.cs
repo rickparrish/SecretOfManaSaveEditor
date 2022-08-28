@@ -1,6 +1,4 @@
-﻿// TODOY Maybe have Get and Set methods when a List is involved, to ensure
-//       the counts don't change (or for gear, that they stay within acceptable lengths)
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Numerics;
 
 namespace SavLibrary {
@@ -35,16 +33,20 @@ namespace SavLibrary {
             }
         }
 
-        public List<int> MagicExperience {
-            get {
-                return magicEXP;
-            }
+        public int GetMagicExperience(SpiritType spirit) {
+            return magicEXP[(int)spirit];
         }
 
-        public List<int> WeaponExperience { 
-            get {
-                return weaponEXP;
-            }
+        public int GetWeaponExperience(WeaponType weapon) {
+            return weaponEXP[(int)weapon];
+        }
+
+        public void SetMagicExperience(SpiritType spirit, int experience) {
+            magicEXP[(int)spirit] = experience;
+        }
+
+        public void SetWeaponExperience(WeaponType weapon, int experience) {
+            weaponEXP[(int)weapon] = experience;
         }
     }
 }
