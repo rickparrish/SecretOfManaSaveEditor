@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// TODOY Maybe have Get and Set methods when a List is involved, to ensure
+//       the counts don't change (or for gear, that they stay within acceptable lengths)
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace SavLibrary {
@@ -23,5 +25,11 @@ namespace SavLibrary {
         internal int battleStatusFlag;
         internal int statusFlag;
         internal int level;
+
+        public List<int> WeaponExperience { 
+            get {
+                return weaponEXP;
+            }
+        }
     }
 }

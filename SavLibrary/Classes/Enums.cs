@@ -88,4 +88,15 @@
         Barrel,
         Unknown,
     }
+
+    public enum WeaponType {
+        Sword = 0,
+        Spear,
+        Gloves,
+        Javelin,
+        Boomerang,
+        Bow,
+        Whip,
+        Axe,
+    }
 }

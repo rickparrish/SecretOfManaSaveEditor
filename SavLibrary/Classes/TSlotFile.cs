@@ -18,6 +18,13 @@ namespace SavLibrary {
                 return TPlayerSaveData.Bodies;
             }
         }
+
+        public List<TCharacter> Characters {
+            get {
+                return TPlayerSaveData.Characters;
+            }
+        }
+
         public bool GirlJoinedParty {
             get {
                 return TPlayerSaveData.isJoinParty[(int)CharacterType.Girl] != 0;
@@ -54,6 +61,24 @@ namespace SavLibrary {
             }
             set {
                 TPlayerSaveData.isJoinParty[(int)CharacterType.Sprite] = 1;
+            }
+        }
+
+        /// <summary>
+        /// How many times have the weapons been forged by Watts
+        /// </summary>
+        public List<int> WeaponLevel {
+            get {
+                return TPlayerSaveData.weaponLevel;
+            }
+        }
+
+        /// <summary>
+        /// How many orbs have been collected for the weapons
+        /// </summary>
+        public List<int> WeaponPower {
+            get {
+                return TPlayerSaveData.weaponPower;
             }
         }
     }
