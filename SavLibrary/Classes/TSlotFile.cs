@@ -46,6 +46,18 @@ namespace SavLibrary {
             }
         }
 
+        // TODOY Would be better handled as an array instead of a bitmask, or with Get and Set functions
+        public int ManaSeeds {
+            get {
+                return TPlayerSaveData.manaEnergyBall_forView;
+            }
+            set {
+                TPlayerSaveData.manaEnergyBall_forView = value;
+                TPlayerSaveData.manaEnergyBall = value;
+                TPlayerSaveData.manaEnergy = value;
+            }
+        }
+
         public int Money {
             get {
                 return TPlayerSaveData.money;
@@ -79,18 +91,6 @@ namespace SavLibrary {
         public List<int> WeaponPower {
             get {
                 return TPlayerSaveData.weaponPower;
-            }
-        }
-
-        // TODOY Would be better handled as an array instead of a bitmask, or with Get and Set functions
-        public int ManaSeeds { 
-            get {
-                return TPlayerSaveData.manaEnergyBall_forView;
-            }
-            set {
-                TPlayerSaveData.manaEnergyBall_forView = value;
-                TPlayerSaveData.manaEnergyBall = value;
-                TPlayerSaveData.manaEnergy = value;
             }
         }
     }
