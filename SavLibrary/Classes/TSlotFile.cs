@@ -67,6 +67,12 @@ namespace SavLibrary {
             }
         }
 
+        public List<int> Spirits {
+            get {
+                return TPlayerSaveData.magicPower;
+            }
+        }
+
         public bool SpriteJoinedParty {
             get {
                 return TPlayerSaveData.isJoinParty[(int)CharacterType.Sprite] != 0;

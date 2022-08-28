@@ -100,6 +100,17 @@
         Wood = 1,
     }
 
+    public enum SpiritType {
+        Gnome = 0,
+        Undine,
+        Salamando,
+        Sylphid,
+        Luna,
+        Dryad,
+        Shade,
+        Lumina,
+    }
+
     public enum WeaponType {
         Sword = 0,
         Spear,

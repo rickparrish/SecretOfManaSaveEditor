@@ -26,6 +26,12 @@ namespace SavLibrary {
         internal int statusFlag;
         internal int level;
 
+        public List<int> MagicExperience {
+            get {
+                return magicEXP;
+            }
+        }
+
         public List<int> WeaponExperience { 
             get {
                 return weaponEXP;
