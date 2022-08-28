@@ -25,6 +25,10 @@ namespace SavLibrary {
             }
         }
 
+        public int GetItemCount(ItemType item) {
+            return TPlayerSaveData.Items[(int)item];
+        }
+
         public bool GirlJoinedParty {
             get {
                 return TPlayerSaveData.isJoinParty[(int)CharacterType.Girl] != 0;
@@ -37,12 +41,6 @@ namespace SavLibrary {
         public List<HeadGearType> HeadGear { 
             get {
                 return TPlayerSaveData.Heads;
-            }
-        }
-
-        public List<int> Items {
-            get {
-                return TPlayerSaveData.Items;
             }
         }
 
@@ -79,6 +77,10 @@ namespace SavLibrary {
             set {
                 TPlayerSaveData.money = value;
             }
+        }
+
+        public void SetItemCount(ItemType item, int count) {
+            TPlayerSaveData.Items[(int)item] = count;
         }
 
         public List<int> Spirits {
