@@ -58,6 +58,17 @@ namespace SavLibrary {
                         // Add for contents of list, which is 4 bytes for element size, 4 bytes for element type, and the size of each element
                         int elementSize;
                         switch (listType.Name) {
+                            case nameof(ArmGearType):
+                            case nameof(BodyGearType):
+                            case nameof(HeadGearType):
+                            case nameof(Int32):
+                                elementSize = 4;
+                                size += (4 + 4 + elementSize) * list.Count;
+                                break;
+                            case nameof(Byte):
+                                elementSize = 1;
+                                size += (4 + 4 + elementSize) * list.Count;
+                                break;
                             case nameof(TCharacter):
                                 // TCharacter elements can be different size because character names can be different length, so we need
                                 // to loop through them all to get an accurate size
@@ -65,14 +76,6 @@ namespace SavLibrary {
                                     elementSize = GetSize(character);
                                     size += 4 + 4 + elementSize;
                                 }
-                                break;
-                            case nameof(Byte):
-                                elementSize = 1;
-                                size += (4 + 4 + elementSize) * list.Count;
-                                break;
-                            case nameof(Int32):
-                                elementSize = 4;
-                                size += (4 + 4 + elementSize) * list.Count;
                                 break;
                             default:
                                 throw new InvalidDataException($"Unsupported FieldType '{fi.FieldType}'");
@@ -175,6 +178,61 @@ namespace SavLibrary {
                     case "List`1": // Not sure how to use nameof() for this
                         Type listType = pi.FieldType.GetGenericArguments()[0];
                         switch (listType.Name) {
+                            case nameof(ArmGearType):
+                                var armList = (List<ArmGearType>)pi.GetValue(obj);
+                                WriteInt(4 + ((8 + 4) * armList.Count));    // List size in bytes (4 bytes for element count + each list item has 4 for item size, 4 for item type, and 4 for item value)
+                                WriteInt(196609);                           // List is type=196609
+                                WriteInt(armList.Count);                    // List element count
+                                foreach (var item in armList) {
+                                    WriteInt(4);                            // List<int> element size=4
+                                    WriteInt(1);                            // List<int> element type=1 (number)
+                                    WriteInt((int)item);
+                                }
+                                break;
+                            case nameof(BodyGearType):
+                                var bodyList = (List<BodyGearType>)pi.GetValue(obj);
+                                WriteInt(4 + ((8 + 4) * bodyList.Count));   // List size in bytes (4 bytes for element count + each list item has 4 for item size, 4 for item type, and 4 for item value)
+                                WriteInt(196609);                           // List is type=196609
+                                WriteInt(bodyList.Count);                   // List element count
+                                foreach (var item in bodyList) {
+                                    WriteInt(4);                            // List<int> element size=4
+                                    WriteInt(1);                            // List<int> element type=1 (number)
+                                    WriteInt((int)item);
+                                }
+                                break;
+                            case nameof(Byte):
+                                var byteList = (List<byte>)pi.GetValue(obj);
+                                WriteInt(4 + ((8 + 1) * byteList.Count));   // List size in bytes (4 bytes for element count + each list item has 4 for item size, 4 for item type, and 1 for item value)
+                                WriteInt(196609);                           // List is type=196609
+                                WriteInt(byteList.Count);                   // List element count
+                                foreach (var item in byteList) {
+                                    WriteInt(1);                            // List<byte> element size=1
+                                    WriteInt(1);                            // List<byte> element type=1 (number)
+                                    WriteByte(item);
+                                }
+                                break;
+                            case nameof(HeadGearType):
+                                var headList = (List<HeadGearType>)pi.GetValue(obj);
+                                WriteInt(4 + ((8 + 4) * headList.Count));   // List size in bytes (4 bytes for element count + each list item has 4 for item size, 4 for item type, and 4 for item value)
+                                WriteInt(196609);                           // List is type=196609
+                                WriteInt(headList.Count);                   // List element count
+                                foreach (var item in headList) {
+                                    WriteInt(4);                            // List<int> element size=4
+                                    WriteInt(1);                            // List<int> element type=1 (number)
+                                    WriteInt((int)item);
+                                }
+                                break;
+                            case nameof(Int32):
+                                var intList = (List<int>)pi.GetValue(obj);
+                                WriteInt(4 + ((8 + 4) * intList.Count));    // List size in bytes (4 bytes for element count + each list item has 4 for item size, 4 for item type, and 4 for item value)
+                                WriteInt(196609);                           // List is type=196609
+                                WriteInt(intList.Count);                    // List element count
+                                foreach (var item in intList) {
+                                    WriteInt(4);                            // List<int> element size=4
+                                    WriteInt(1);                            // List<int> element type=1 (number)
+                                    WriteInt(item);
+                                }
+                                break;
                             case nameof(TCharacter):
                                 // TCharacter elements can be different size because character names can be different length, so we need
                                 // to loop through them all to get an accurate size
@@ -192,28 +250,6 @@ namespace SavLibrary {
                                     WriteInt(GetSize(character));   // List<TCharacter> element size
                                     WriteInt(131073);               // List<TCharacter> element type
                                     SerializeClass(character);
-                                }
-                                break;
-                            case nameof(Byte):
-                                var byteList = (List<byte>)pi.GetValue(obj);
-                                WriteInt(4 + ((8 + 1) * byteList.Count));   // List size in bytes (4 bytes for element count + each list item has 4 for item size, 4 for item type, and 1 for item value)
-                                WriteInt(196609);                           // List is type=196609
-                                WriteInt(byteList.Count);                   // List element count
-                                foreach (var item in byteList) {
-                                    WriteInt(1);                            // List<byte> element size=1
-                                    WriteInt(1);                            // List<byte> element type=1 (number)
-                                    WriteByte(item);
-                                }
-                                break;
-                            case nameof(Int32):
-                                var intList = (List<int>)pi.GetValue(obj);
-                                WriteInt(4 + ((8 + 4) * intList.Count));    // List size in bytes (4 bytes for element count + each list item has 4 for item size, 4 for item type, and 4 for item value)
-                                WriteInt(196609);                           // List is type=196609
-                                WriteInt(intList.Count);                    // List element count
-                                foreach (var item in intList) {
-                                    WriteInt(4);                            // List<int> element size=4
-                                    WriteInt(1);                            // List<int> element type=1 (number)
-                                    WriteInt(item);
                                 }
                                 break;
                             default:

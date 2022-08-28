@@ -152,8 +152,17 @@ namespace SavLibrary {
                     case 196609: // List
                         Type listType = fi.FieldType.GetGenericArguments()[0];
                         switch (listType.Name) {
+                            case nameof(ArmGearType):
+                                fieldValue = ReadList<ArmGearType>();
+                                break;
+                            case nameof(BodyGearType):
+                                fieldValue = ReadList<BodyGearType>();
+                                break;
                             case nameof(Byte):
                                 fieldValue = ReadList<byte>();
+                                break;
+                            case nameof(HeadGearType):
+                                fieldValue = ReadList<HeadGearType>();
                                 break;
                             case nameof(Int32):
                                 fieldValue = ReadList<int>();

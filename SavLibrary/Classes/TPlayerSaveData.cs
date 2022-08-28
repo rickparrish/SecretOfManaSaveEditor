@@ -18,9 +18,9 @@ namespace SavLibrary {
         internal List<int> ArmsRngCmd;
         internal List<int> BodiesRngCmd;
         internal List<int> HeadsRngCmd;
-        internal List<int> Arms;
-        internal List<int> Bodies;
-        internal List<int> Heads;
+        internal List<ArmGearType> Arms;
+        internal List<BodyGearType> Bodies;
+        internal List<HeadGearType> Heads;
         internal List<TCharacter> Characters;
         internal int currrentMap;
         internal int money;
