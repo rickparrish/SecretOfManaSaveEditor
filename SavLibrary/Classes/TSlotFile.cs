@@ -30,7 +30,7 @@ namespace SavLibrary {
                 return TPlayerSaveData.isJoinParty[(int)CharacterType.Girl] != 0;
             }
             set {
-                TPlayerSaveData.isJoinParty[(int)CharacterType.Girl] = 1;
+                TPlayerSaveData.isJoinParty[(int)CharacterType.Girl] = value ? (byte)1 : (byte)0;
             }
         }
 
@@ -78,7 +78,7 @@ namespace SavLibrary {
                 return TPlayerSaveData.isJoinParty[(int)CharacterType.Sprite] != 0;
             }
             set {
-                TPlayerSaveData.isJoinParty[(int)CharacterType.Sprite] = 1;
+                TPlayerSaveData.isJoinParty[(int)CharacterType.Sprite] = value ? (byte)1 : (byte)0;
             }
         }
 
