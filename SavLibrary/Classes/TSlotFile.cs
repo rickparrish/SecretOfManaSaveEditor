@@ -47,6 +47,20 @@ namespace SavLibrary {
         }
 
         // TODOY Would be better handled as an array instead of a bitmask, or with Get and Set functions
+        public int ManaSeedCount {
+            get {
+                // From: https://stackoverflow.com/a/12171691/342378
+                int count = 0;
+                int value = ManaSeeds;
+                while (value != 0) {
+                    count += 1;
+                    value &= value - 1;
+                }
+                return count;
+            }
+        }
+
+        // TODOY Would be better handled as an array instead of a bitmask, or with Get and Set functions
         public int ManaSeeds {
             get {
                 return TPlayerSaveData.manaEnergyBall_forView;
