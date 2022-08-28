@@ -89,6 +89,17 @@
         Unknown,
     }
 
+    public enum ManaSeedType {
+        Water = 128,
+        Earth = 64,
+        Wind = 32,
+        Fire = 16,
+        Light = 8,
+        Darkness = 4,
+        Moon = 2,
+        Wood = 1,
+    }
+
     public enum WeaponType {
         Sword = 0,
         Spear,
