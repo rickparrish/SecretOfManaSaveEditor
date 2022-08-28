@@ -45,6 +45,12 @@
         FaerieCloak,
     }
 
+    public enum CharacterType {
+        Boy,
+        Girl,
+        Sprite,
+    }
+
     public enum HeadGearType {
         Bandana = 1,
         HairRibbon,
@@ -68,4 +74,18 @@
         FaerieCrown,
     }
 
+    public enum ItemType {
+        Candy = 0,
+        Chocolate,
+        RoyalJam,
+        FaerieWalnut,
+        MedicalHerb,
+        CupOfWishes,
+        MagicRope,
+        FlammieDrum,
+        MoogleBelt,
+        MinorMallet,
+        Barrel,
+        Unknown,
+    }
 }
