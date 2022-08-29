@@ -26,6 +26,10 @@ namespace SavLibrary {
             return TPlayerSaveData.Items[(int)item];
         }
 
+        public bool GetManaSeed(ManaSeedType manaSeed) {
+            return (TPlayerSaveData.manaEnergyBall_forView & (byte)manaSeed) == (byte)manaSeed;
+        }
+
         public bool GetSpirit(SpiritType spirit) {
             return TPlayerSaveData.magicPower[(int)spirit] != 0;
         }
@@ -47,29 +51,17 @@ namespace SavLibrary {
             }
         }
 
-        // TODOY Would be better handled as an array instead of a bitmask, or with Get and Set functions
         public int ManaSeedCount {
             get {
-                // From: https://stackoverflow.com/a/12171691/342378
-                int count = 0;
-                int value = ManaSeeds;
-                while (value != 0) {
-                    count += 1;
-                    value &= value - 1;
-                }
-                return count;
-            }
-        }
+                int result = 0;
 
-        // TODOY Would be better handled as an array instead of a bitmask, or with Get and Set functions
-        public int ManaSeeds {
-            get {
-                return TPlayerSaveData.manaEnergyBall_forView;
-            }
-            set {
-                TPlayerSaveData.manaEnergyBall_forView = value;
-                TPlayerSaveData.manaEnergyBall = value;
-                TPlayerSaveData.manaEnergy = value;
+                foreach (ManaSeedType manaSeed in Enum.GetValues(typeof(ManaSeedType))) {
+                    if (GetManaSeed(manaSeed)) {
+                        result += 1;
+                    }
+                }
+
+                return result;
             }
         }
 
@@ -108,6 +100,21 @@ namespace SavLibrary {
 
         public void SetItemCount(ItemType item, int count) {
             TPlayerSaveData.Items[(int)item] = count;
+        }
+
+        public void SetManaSeed(ManaSeedType manaSeed, bool synchronized) {
+            int value = TPlayerSaveData.manaEnergyBall_forView;
+
+            if (synchronized) {
+                value |= (byte)manaSeed;
+            } else {
+                value |= (byte)manaSeed;
+                value -= (byte)manaSeed;
+            }
+
+            TPlayerSaveData.manaEnergyBall_forView = value;
+            TPlayerSaveData.manaEnergyBall = value;
+            TPlayerSaveData.manaEnergy = value;
         }
 
         public void SetSpirit(SpiritType spirit, bool met) {
