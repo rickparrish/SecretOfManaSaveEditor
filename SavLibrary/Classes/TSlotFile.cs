@@ -1,32 +1,39 @@
-﻿// TODOY Maybe have Get and Set methods when a List is involved, to ensure
-//       the counts don't change (or for gear, that they stay within acceptable lengths)
-using System.Collections.Generic;
-
-namespace SavLibrary {
+﻿namespace SavLibrary {
     public class TSlotFile {
         internal TSerializableGameSettingData TSerializableGameSettingData;
         internal TScriptData TScriptData;
         internal TPlayerSaveData TPlayerSaveData;
 
-        public List<ArmGearType> ArmGear { 
-            get {
-                return TPlayerSaveData.Arms;
-            }
-        }
-        public List<BodyGearType> BodyGear {
-            get {
-                return TPlayerSaveData.Bodies;
-            }
+        public ArmGearType[] GetArmGear() {
+            return TPlayerSaveData.Arms.ToArray();
         }
 
-        public List<TCharacter> Characters {
-            get {
-                return TPlayerSaveData.Characters;
-            }
+        public BodyGearType[] GetBodyGear() {
+            return TPlayerSaveData.Bodies.ToArray();
+        }
+
+        public TCharacter GetCharacter(CharacterType character) {
+            return TPlayerSaveData.Characters[(int)character];
+        }
+
+        public HeadGearType[] GetHeadGear() {
+            return TPlayerSaveData.Heads.ToArray();
         }
 
         public int GetItemCount(ItemType item) {
             return TPlayerSaveData.Items[(int)item];
+        }
+
+        public bool GetSpirit(SpiritType spirit) {
+            return TPlayerSaveData.magicPower[(int)spirit] != 0;
+        }
+
+        public int GetWeaponLevel(WeaponType weapon) {
+            return TPlayerSaveData.weaponLevel[(int)weapon];
+        }
+
+        public int GetWeaponPower(WeaponType weapon) {
+            return TPlayerSaveData.weaponPower[(int)weapon];
         }
 
         public bool GirlJoinedParty {
@@ -35,12 +42,6 @@ namespace SavLibrary {
             }
             set {
                 TPlayerSaveData.isJoinParty[(int)CharacterType.Girl] = value ? (byte)1 : (byte)0;
-            }
-        }
-
-        public List<HeadGearType> HeadGear { 
-            get {
-                return TPlayerSaveData.Heads;
             }
         }
 
@@ -79,14 +80,35 @@ namespace SavLibrary {
             }
         }
 
+        public void SetArmGear(ArmGearType[] armGear) {
+            TPlayerSaveData.Arms.Clear();
+            TPlayerSaveData.Arms.AddRange(armGear);
+        }
+
+        public void SetBodyGear(BodyGearType[] bodyGear) {
+            TPlayerSaveData.Bodies.Clear();
+            TPlayerSaveData.Bodies.AddRange(bodyGear);
+        }
+
+        public void SetHeadGear(HeadGearType[] headGear) {
+            TPlayerSaveData.Heads.Clear();
+            TPlayerSaveData.Heads.AddRange(headGear);
+        }
+
         public void SetItemCount(ItemType item, int count) {
             TPlayerSaveData.Items[(int)item] = count;
         }
 
-        public List<int> Spirits {
-            get {
-                return TPlayerSaveData.magicPower;
-            }
+        public void SetSpirit(SpiritType spirit, bool met) {
+            TPlayerSaveData.magicPower[(int)spirit] = met ? 1 : 0;
+        }
+
+        public void SetWeaponLevel(WeaponType weapon, int level) {
+            TPlayerSaveData.weaponLevel[(int)weapon] = level;
+        }
+
+        public void SetWeaponPower(WeaponType weapon, int power) {
+            TPlayerSaveData.weaponPower[(int)weapon] = power;
         }
 
         public bool SpriteJoinedParty {
@@ -95,24 +117,6 @@ namespace SavLibrary {
             }
             set {
                 TPlayerSaveData.isJoinParty[(int)CharacterType.Sprite] = value ? (byte)1 : (byte)0;
-            }
-        }
-
-        /// <summary>
-        /// How many times have the weapons been forged by Watts
-        /// </summary>
-        public List<int> WeaponLevel {
-            get {
-                return TPlayerSaveData.weaponLevel;
-            }
-        }
-
-        /// <summary>
-        /// How many orbs have been collected for the weapons
-        /// </summary>
-        public List<int> WeaponPower {
-            get {
-                return TPlayerSaveData.weaponPower;
             }
         }
     }
