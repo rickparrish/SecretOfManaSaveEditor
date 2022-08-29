@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace SavLibrary {
@@ -39,6 +40,21 @@ namespace SavLibrary {
 
         public int GetWeaponExperience(WeaponType weapon) {
             return weaponEXP[(int)weapon];
+        }
+
+        public string Name {
+            get {
+                return name;
+            }
+            set {
+                if (string.IsNullOrWhiteSpace(value)) {
+                    throw new ArgumentNullException(nameof(value), "Name cannot be null or whitespace");
+                }
+                if (value.Length > 8) {
+                    throw new ArgumentOutOfRangeException(nameof(value), "Name cannot be longer than 8 characters");
+                }
+                name = value;
+            }
         }
 
         public void SetMagicExperience(SpiritType spirit, int experience) {
