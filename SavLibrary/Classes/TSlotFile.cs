@@ -1,4 +1,6 @@
-﻿namespace SavLibrary {
+﻿using System;
+
+namespace SavLibrary {
     public class TSlotFile {
         internal TSerializableGameSettingData TSerializableGameSettingData;
         internal TScriptData TScriptData;
@@ -81,16 +83,25 @@
         }
 
         public void SetArmGear(ArmGearType[] armGear) {
+            if (armGear.Length > 11) {
+                throw new ArgumentOutOfRangeException(nameof(armGear), "Arm Gear cannot contain more than 11 items");
+            }
             TPlayerSaveData.Arms.Clear();
             TPlayerSaveData.Arms.AddRange(armGear);
         }
 
         public void SetBodyGear(BodyGearType[] bodyGear) {
+            if (bodyGear.Length > 11) {
+                throw new ArgumentOutOfRangeException(nameof(bodyGear), "Body Gear cannot contain more than 11 items");
+            }
             TPlayerSaveData.Bodies.Clear();
             TPlayerSaveData.Bodies.AddRange(bodyGear);
         }
 
         public void SetHeadGear(HeadGearType[] headGear) {
+            if (headGear.Length > 11) {
+                throw new ArgumentOutOfRangeException(nameof(headGear), "Head Gear cannot contain more than 11 items");
+            }
             TPlayerSaveData.Heads.Clear();
             TPlayerSaveData.Heads.AddRange(headGear);
         }
