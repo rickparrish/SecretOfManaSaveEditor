@@ -1,10 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SavLibrary {
     public static class Enums {
         public static T Parse<T>(string type) {
             return (T)Enum.Parse(typeof(T), type);
         }
+
+        public static Dictionary<WeaponType, string[]> WeaponTypeNames = new Dictionary<WeaponType, string[]>() {
+            { WeaponType.Axe, new string[] { "Watt's Axe", "Lode Axe", "Stout Axe", "Battle Axe", "Pyrite Axe", "Were-Buster", "Great Axe", "Gigas Axe", "Doom Axe", } },
+            { WeaponType.Boomerang, new string[] { "Boomerang", "Chakram", "Lode Boomerang", "Rising Sun", "Titan Boomerang", "Cobra Shuttle", "Frizbar", "Shuriken", "Ninja Star", } },
+            { WeaponType.Bow, new string[] { "Chobin's Bow", "Iron Bow", "Long Bow", "Great Bow", "Silver Bow", "Elfin Bow", "Wing Bow", "Doom Bow", "Garuda Buster", } },
+            { WeaponType.Gloves, new string[] { "Spiked Knuckles", "Power Glove", "Moogle Claws", "Chakra Hand", "Heavy Glove", "Hyper-Fist", "Griffin Claws", "Dragon Claws", "Aura Glove", } },
+            { WeaponType.Javelin, new string[] { "Pole Dart", "Javelin", "Light Trident", "Trident", "Silver Pilum", "Imp's Fork", "Elf's Harpoon", "Dragon Dart", "Valkyrian", } },
+            { WeaponType.Spear, new string[] { "Spear", "Heavy Spear", "Sprite's Spear", "Partisan", "Halberd", "Oceanid Spear", "Gigas Lance", "Dragon Lance", "Daedalus Lance", } },
+            { WeaponType.Sword, new string[] { "Rusty Sword", "Rapier", "Herald's Sword", "Orihalcum Blade", "Excalibur", "Masamune", "Gigas Sword", "Dragon Buster", "Mana Sword", } },
+            { WeaponType.Whip, new string[] { "Leather Whip", "Black Whip", "Backhand Whip", "Chain Whip", "Silver Whip", "Steel Whip", "Hammer Whip", "Nimbus Whip", "Gigas Whip", } },
+        };
     }
 
     public enum ArmGearType {
