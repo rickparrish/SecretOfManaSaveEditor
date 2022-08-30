@@ -40,7 +40,6 @@ namespace SavLibrary {
                 EXP = value;
 
                 // Also set the amount of experience required to move to the next level
-                // Thresholds are the same for boy, girl, and sprite, so not a problem that we hardcoded to Boy below
                 Level level = ExperienceFaq.GetLevelByExperience(CharacterType, value);
                 if (level.Number == 99) {
                     nextEXP = 9999999;
