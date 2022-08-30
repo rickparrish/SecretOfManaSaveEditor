@@ -1,4 +1,12 @@
-﻿namespace SavLibrary {
+﻿using System;
+
+namespace SavLibrary {
+    public static class Enums {
+        public static T Parse<T>(string type) {
+            return (T)Enum.Parse(typeof(T), type);
+        }
+    }
+
     public enum ArmGearType {
         FaeriesRing = 43,
         ElbowPad,
