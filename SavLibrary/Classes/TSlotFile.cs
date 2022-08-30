@@ -1,10 +1,35 @@
 ﻿using System;
+using System.Linq;
 
 namespace SavLibrary {
     public class TSlotFile {
         internal TSerializableGameSettingData TSerializableGameSettingData;
         internal TScriptData TScriptData;
         internal TPlayerSaveData TPlayerSaveData;
+
+        public bool[] GetAchievement_ArmGear() {
+            return TPlayerSaveData.db_arm.Select(x => x != 0).ToArray();
+        }
+
+        public bool[] GetAchievement_BodyGear() {
+            return TPlayerSaveData.db_armor.Select(x => x != 0).ToArray();
+        }
+
+        public bool[] GetAchievement_Characters() {
+            return TPlayerSaveData.db_characters.Select(x => x != 0).ToArray();
+        }
+
+        public bool[] GetAchievement_HeadGear() {
+            return TPlayerSaveData.db_head.Select(x => x != 0).ToArray();
+        }
+
+        public bool[] GetAchievement_Monsters() {
+            return TPlayerSaveData.db_monsters.Select(x => x != 0).ToArray();
+        }
+
+        public bool[] GetAchievement_Weapons() {
+            return TPlayerSaveData.db_weapon.Select(x => x != 0).ToArray();
+        }
 
         public ArmGearType[] GetArmGear() {
             return TPlayerSaveData.Arms.ToArray();
