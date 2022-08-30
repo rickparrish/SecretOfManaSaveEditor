@@ -99,6 +99,48 @@ namespace SavLibrary {
             }
         }
 
+        public void SetAchievement_ArmGear(int index, bool value) {
+            if ((index < 0) || (index >= TPlayerSaveData.db_arm.Count)) {
+                throw new ArgumentOutOfRangeException(nameof(index), $"Index must be between 0 and {TPlayerSaveData.db_arm.Count}");
+            }
+            TPlayerSaveData.db_arm[index] = value ? 1 : 0;
+        }
+
+        public void SetAchievement_BodyGear(int index, bool value) {
+            if ((index < 0) || (index >= TPlayerSaveData.db_armor.Count)) {
+                throw new ArgumentOutOfRangeException(nameof(index), $"Index must be between 0 and {TPlayerSaveData.db_armor.Count}");
+            }
+            TPlayerSaveData.db_armor[index] = value ? 1 : 0;
+        }
+
+        public void SetAchievement_Characters(int index, bool value) {
+            if ((index < 0) || (index >= TPlayerSaveData.db_characters.Count)) {
+                throw new ArgumentOutOfRangeException(nameof(index), $"Index must be between 0 and {TPlayerSaveData.db_characters.Count}");
+            }
+            TPlayerSaveData.db_characters[index] = value ? 1 : 0;
+        }
+
+        public void SetAchievement_HeadGear(int index, bool value) {
+            if ((index < 0) || (index >= TPlayerSaveData.db_head.Count)) {
+                throw new ArgumentOutOfRangeException(nameof(index), $"Index must be between 0 and {TPlayerSaveData.db_head.Count}");
+            }
+            TPlayerSaveData.db_head[index] = value ? 1 : 0;
+        }
+
+        public void SetAchievement_Monsters(int index, bool value) {
+            if ((index < 0) || (index >= TPlayerSaveData.db_monsters.Count)) {
+                throw new ArgumentOutOfRangeException(nameof(index), $"Index must be between 0 and {TPlayerSaveData.db_monsters.Count}");
+            }
+            TPlayerSaveData.db_monsters[index] = value ? 1 : 0;
+        }
+
+        public void SetAchievement_Weapons(int index, bool value) {
+            if ((index < 0) || (index >= TPlayerSaveData.db_weapon.Count)) {
+                throw new ArgumentOutOfRangeException(nameof(index), $"Index must be between 0 and {TPlayerSaveData.db_weapon.Count}");
+            }
+            TPlayerSaveData.db_weapon[index] = value ? 1 : 0;
+        }
+
         public void SetArmGear(ArmGearType[] armGear) {
             if (armGear.Length > 11) {
                 throw new ArgumentOutOfRangeException(nameof(armGear), "Arm Gear cannot contain more than 11 items");
