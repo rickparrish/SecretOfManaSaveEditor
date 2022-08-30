@@ -94,7 +94,7 @@ namespace SavLibrary {
                     throw new InvalidDataException($"Error reading Characters (expected '131073' got '{unknownInt}')");
                 }
 
-                var character = new TCharacter();
+                var character = new TCharacter((CharacterType)i);
                 DeserializeClass(character);
                 result.Add(character);
             }

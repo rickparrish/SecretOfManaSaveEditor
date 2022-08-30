@@ -25,12 +25,35 @@ namespace SavLibrary {
         internal int statusFlag;
         internal int level;
 
+        public TCharacter(CharacterType characterType) {
+            this.CharacterType = characterType;
+        }
+
+        // Can't be a property, or a hidden backing field will be created and picked up by Reflection when serializing/deserializing
+        public CharacterType CharacterType;
+
         public int Experience {
             get {
                 return EXP;
             }
             set {
                 EXP = value;
+
+                // Also set the amount of experience required to move to the next level
+                // Thresholds are the same for boy, girl, and sprite, so not a problem that we hardcoded to Boy below
+                Level level = ExperienceFaq.GetLevelByExperience(CharacterType, value);
+                if (level.Number == 99) {
+                    nextEXP = 9999999;
+                } else {
+                    level = ExperienceFaq.GetLevel(CharacterType, level.Number + 1);
+                    nextEXP = level.Experience;
+                }
+            }
+        }
+
+        public int ExperienceForNextLevel {
+            get {
+                return nextEXP;
             }
         }
 
@@ -40,6 +63,24 @@ namespace SavLibrary {
 
         public int GetWeaponExperience(WeaponType weapon) {
             return weaponEXP[(int)weapon];
+        }
+
+        public int HitPoints {
+            get {
+                return currentHP;
+            }
+        }
+
+        public Level Level {
+            get {
+                return ExperienceFaq.GetLevelByExperience(CharacterType, Experience);
+            }
+        }
+
+        public int ManaPoints {
+            get {
+                return currentMP;
+            }
         }
 
         public string Name {
@@ -54,6 +95,12 @@ namespace SavLibrary {
                     throw new ArgumentOutOfRangeException(nameof(value), "Name cannot be longer than 8 characters");
                 }
                 name = value;
+            }
+        }
+
+        public Level NextLevel {
+            get {
+                return Level.Number == 99 ? null : ExperienceFaq.GetLevel(CharacterType, Level.Number + 1);
             }
         }
 
