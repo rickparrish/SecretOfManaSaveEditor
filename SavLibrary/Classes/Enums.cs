@@ -28,6 +28,18 @@ namespace SavLibrary {
             return result.ToArray();
         }
 
+        public static Dictionary<int, string> GetDescriptionsAndValues<T>() {
+            var result = new Dictionary<int, string>();
+
+            foreach (var value in Enum.GetValues(typeof(T))) {
+                FieldInfo fi = value.GetType().GetField(value.ToString());
+                DescriptionAttribute attribute = fi.GetCustomAttribute<DescriptionAttribute>();
+                result.Add((int)value, attribute?.Description ?? value.ToString());
+            }
+
+            return result;
+        }
+
         public static T Parse<T>(string type) {
             return (T)Enum.Parse(typeof(T), type);
         }
@@ -217,13 +229,21 @@ namespace SavLibrary {
     }
 
     public enum WeaponType {
-        Sword = 0,
-        Spear,
-        Gloves,
-        Javelin,
-        Boomerang,
-        Bow,
-        Whip,
+        Gloves = 0,
+        Sword,
         Axe,
+        Spear,
+        Whip,
+        Bow,
+        Boomerang,
+        Javelin,
+        //Sword = 0,
+        //Spear = 1,
+        //Gloves = 2,
+        //Javelin = 3,
+        //Boomerang = 4,
+        //Bow = 5,
+        //Whip = 6,
+        //Axe = 7,
     }
 }
