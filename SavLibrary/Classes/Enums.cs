@@ -237,13 +237,5 @@ namespace SavLibrary {
         Bow,
         Boomerang,
         Javelin,
-        //Sword = 0,
-        //Spear = 1,
-        //Gloves = 2,
-        //Javelin = 3,
-        //Boomerang = 4,
-        //Bow = 5,
-        //Whip = 6,
-        //Axe = 7,
     }
 }
