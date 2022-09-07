@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 
 namespace SavLibrary {
@@ -16,28 +17,19 @@ namespace SavLibrary {
             { WeaponType.Whip, new string[] { "Leather Whip", "Black Whip", "Backhand Whip", "Chain Whip", "Silver Whip", "Steel Whip", "Hammer Whip", "Nimbus Whip", "Gigas Whip", } },
         };
 
-        public static string[] GetDescriptions<T>() {
-            var result = new List<string>();
-
-            foreach (var value in Enum.GetValues(typeof(T))) {
-                FieldInfo fi = value.GetType().GetField(value.ToString());
-                DescriptionAttribute attribute = fi.GetCustomAttribute<DescriptionAttribute>();
-                result.Add(attribute?.Description ?? value.ToString());
-            }
-
-            return result.ToArray();
+        public static string[] GetDescriptions<T>(bool sortByOrderAttribute) {
+            return typeof(T).GetFields()
+                            .Where(x => x.IsStatic)
+                            .OrderBy(x => sortByOrderAttribute ? x.GetCustomAttribute<OrderAttribute>().Order : (int)x.GetValue(null))
+                            .Select(x => x.GetCustomAttribute<DescriptionAttribute>().Description)
+                            .ToArray();
         }
 
-        public static Dictionary<int, string> GetDescriptionsAndValues<T>() {
-            var result = new Dictionary<int, string>();
-
-            foreach (var value in Enum.GetValues(typeof(T))) {
-                FieldInfo fi = value.GetType().GetField(value.ToString());
-                DescriptionAttribute attribute = fi.GetCustomAttribute<DescriptionAttribute>();
-                result.Add((int)value, attribute?.Description ?? value.ToString());
-            }
-
-            return result;
+        public static Dictionary<int, string> GetDescriptionsAndValues<T>(bool sortByOrderAttribute) {
+            return typeof(T).GetFields()
+                            .Where(x => x.IsStatic)
+                            .OrderBy(x => sortByOrderAttribute ? x.GetCustomAttribute<OrderAttribute>().Order : (int)x.GetValue(null))
+                            .ToDictionary(x => (int)x.GetValue(null), x => x.GetCustomAttribute<DescriptionAttribute>().Description);
         }
 
         public static T Parse<T>(string type) {
@@ -46,88 +38,88 @@ namespace SavLibrary {
     }
 
     public enum ArmGearType {
-        [Description("Faerie's Ring")]
+        [Order(19), Description("Faerie's Ring")]
         FaeriesRing = 43,
-        [Description("Elbow Pad")]
+        [Order(1), Description("Elbow Pad")]
         ElbowPad,
-        [Description("Power Vambrace")]
+        [Order(2), Description("Power Vambrace")]
         PowerVambrace,
-        [Description("Cobra Bracelet")]
+        [Order(3), Description("Cobra Bracelet")]
         CobraBracelet,
-        [Description("Wolf's Band")]
+        [Order(4), Description("Wolf's Band")]
         WolfsBand,
-        [Description("Silver Band")]
+        [Order(5), Description("Silver Band")]
         SilverBand,
-        [Description("Golem Ring")]
+        [Order(6), Description("Golem Ring")]
         GolemRing,
-        [Description("Frosty Ring")]
+        [Order(7), Description("Frosty Ring")]
         FrostyRing,
-        [Description("Ivy Amulet")]
+        [Order(8), Description("Ivy Amulet")]
         IvyAmulet,
-        [Description("Gold Bracelet")]
+        [Order(9), Description("Gold Bracelet")]
         GoldBracelet,
-        [Description("Shield Ring")]
+        [Order(10), Description("Shield Ring")]
         ShieldRing,
-        [Description("Lazuli Vambrace")]
+        [Order(11), Description("Lazuli Vambrace")]
         LazuliVambrace,
-        [Description("Guardian Ring")]
+        [Order(12), Description("Guardian Ring")]
         GuardianRing,
-        [Description("Vambrace")]
+        [Order(13), Description("Vambrace")]
         Vambrace,
-        [Description("Ninja Gloves")]
+        [Order(14), Description("Ninja Gloves")]
         NinjaGloves,
-        [Description("Dragon Coil")]
+        [Order(15), Description("Dragon Coil")]
         DragonCoil,
-        [Description("Watcher Ring")]
+        [Order(16), Description("Watcher Ring")]
         WatcherRing,
-        [Description("Imp's Ring")]
+        [Order(17), Description("Imp's Ring")]
         ImpsRing,
-        [Description("Amulet Ring")]
+        [Order(18), Description("Amulet Ring")]
         AmuletRing,
-        [Description("Wristband")]
+        [Order(0), Description("Wristband")]
         Wristband,
     }
 
     public enum BodyGearType {
-        [Description("Overalls")]
+        [Order, Description("Overalls")]
         Overalls = 22,
-        [Description("Kung Fu Suit")]
+        [Order, Description("Kung Fu Suit")]
         KungFuSuit,
-        [Description("Minor Robe")]
+        [Order, Description("Minor Robe")]
         MinorRobe,
-        [Description("Chain Vest")]
+        [Order, Description("Chain Vest")]
         ChainVest,
-        [Description("Spiky Suit")]
+        [Order, Description("Spiky Suit")]
         SpikySuit,
-        [Description("Kung Fu Dress")]
+        [Order, Description("Kung Fu Dress")]
         KungFuDress,
-        [Description("Fancy Overalls")]
+        [Order, Description("Fancy Overalls")]
         FancyOveralls,
-        [Description("Chest Guard")]
+        [Order, Description("Chest Guard")]
         ChestGuard,
-        [Description("Golden Vest")]
+        [Order, Description("Golden Vest")]
         GoldenVest,
-        [Description("Ruby Vest")]
+        [Order, Description("Ruby Vest")]
         RubyVest,
-        [Description("Tiger Suit")]
+        [Order, Description("Tiger Suit")]
         TigerSuit,
-        [Description("Tiger Two-Piece")]
+        [Order, Description("Tiger Two-Piece")]
         TigerTwoPiece,
-        [Description("Magical Armour")]
+        [Order, Description("Magical Armour")]
         MagicalArmour,
-        [Description("Tortoise Mail")]
+        [Order, Description("Tortoise Mail")]
         TortoiseMail,
-        [Description("Flower Suit")]
+        [Order, Description("Flower Suit")]
         FlowerSuit,
-        [Description("Battle Suit")]
+        [Order, Description("Battle Suit")]
         BattleSuit,
-        [Description("Vestguard")]
+        [Order, Description("Vestguard")]
         Vestguard,
-        [Description("Vampire Cape")]
+        [Order, Description("Vampire Cape")]
         VampireCape,
-        [Description("Power Suit")]
+        [Order, Description("Power Suit")]
         PowerSuit,
-        [Description("Faerie Cloak")]
+        [Order, Description("Faerie Cloak")]
         FaerieCloak,
     }
 
@@ -138,70 +130,70 @@ namespace SavLibrary {
     }
 
     public enum HeadGearType {
-        [Description("Bandana")]
+        [Order, Description("Bandana")]
         Bandana = 1,
-        [Description("Hair Ribbon")]
+        [Order, Description("Hair Ribbon")]
         HairRibbon,
-        [Description("Rabite Cap")]
+        [Order, Description("Rabite Cap")]
         RabiteCap,
-        [Description("Head Gear")]
+        [Order, Description("Head Gear")]
         HeadGear,
-        [Description("Quill Cap")]
+        [Order, Description("Quill Cap")]
         QuillCap,
-        [Description("Steel Cap")]
+        [Order, Description("Steel Cap")]
         SteelCap,
-        [Description("Golden Tiara")]
+        [Order, Description("Golden Tiara")]
         GoldenTiara,
-        [Description("Raccoon Cap")]
+        [Order, Description("Raccoon Cap")]
         RaccoonCap,
-        [Description("Quilted Hood")]
+        [Order, Description("Quilted Hood")]
         QuiltedHood,
-        [Description("Tiger Cap")]
+        [Order, Description("Tiger Cap")]
         TigerCap,
-        [Description("Circlet")]
+        [Order, Description("Circlet")]
         Circlet,
-        [Description("Ruby Armet")]
+        [Order, Description("Ruby Armet")]
         RubyArmet, // Not available in the game
-        [Description("Unicorn Helm")]
+        [Order, Description("Unicorn Helm")]
         UnicornHelm,
-        [Description("Dragon Helm")]
+        [Order, Description("Dragon Helm")]
         DragonHelm,
-        [Description("Duck Helm")]
+        [Order, Description("Duck Helm")]
         DuckHelm,
-        [Description("Needle Helm")]
+        [Order, Description("Needle Helm")]
         NeedleHelm,
-        [Description("Cockatrice Cap")]
+        [Order, Description("Cockatrice Cap")]
         CockatriceCap,
-        [Description("Amulet Helm")]
+        [Order, Description("Amulet Helm")]
         AmuletHelm,
-        [Description("Griffin Helm")]
+        [Order, Description("Griffin Helm")]
         GriffinHelm,
-        [Description("Faerie Crown")]
+        [Order, Description("Faerie Crown")]
         FaerieCrown,
     }
 
     public enum ItemType {
-        [Description("Candy")]
+        [Order, Description("Candy")]
         Candy = 0,
-        [Description("Chocolate")]
+        [Order, Description("Chocolate")]
         Chocolate,
-        [Description("Royal Jam")]
+        [Order, Description("Royal Jam")]
         RoyalJam,
-        [Description("Faerie Walnut")]
+        [Order, Description("Faerie Walnut")]
         FaerieWalnut,
-        [Description("Medical Herb")]
+        [Order, Description("Medical Herb")]
         MedicalHerb,
-        [Description("Cup of Wishes")]
+        [Order, Description("Cup of Wishes")]
         CupOfWishes,
-        [Description("Magic Rope")]
+        [Order, Description("Magic Rope")]
         MagicRope,
-        [Description("Flammie Drum")]
+        [Order, Description("Flammie Drum")]
         FlammieDrum,
-        [Description("Moogle Belt")]
+        [Order, Description("Moogle Belt")]
         MoogleBelt,
-        [Description("Minor Mallet")]
+        [Order, Description("Minor Mallet")]
         MinorMallet,
-        [Description("Barrel")]
+        [Order, Description("Barrel")]
         Barrel,
         // TODOY Unknown,
     }
