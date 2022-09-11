@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SecretOfManaSaveEditor {
@@ -11,9 +8,10 @@ namespace SecretOfManaSaveEditor {
         /// </summary>
         [STAThread]
         static void Main() {
-            Application.EnableVisualStyles();
+            // This breaks progress bar colour
+            // Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Forms.MainForm());
         }
     }
 }
