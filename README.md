@@ -15,6 +15,10 @@ There are _presets_ available to allow specific edits to be applied in bulk (acc
 
 I've started a playthrough that uses the Max preset, and quickly ran into two issues (that have been addressed in the Max preset so you shouldn't run into those issues), and there are possibly other issues waiting to be found.  I haven't had much time to continue my playthrough, so if you are feeling brave please give it a try and let me know if you run into any troubles.
 
+## Backups
+The editor should automatically create a timestamped backup before updating your save files, but it wouldn't be a bad idea for you to take your own backup before opening it.  The default save location is here:
+`%USERPROFILE%\Documents\My Games\Secret of Mana`
+
 ## TODO List
 - There's no app icon
 - Ensure everything can be undone (ie adding and removing mana seeds, orbs, forgings, etc)
