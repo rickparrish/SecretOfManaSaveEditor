@@ -17,6 +17,22 @@ namespace SavLibrary {
             { WeaponType.Whip, new string[] { "Leather Whip", "Black Whip", "Backhand Whip", "Chain Whip", "Silver Whip", "Steel Whip", "Hammer Whip", "Nimbus Whip", "Gigas Whip", } },
         };
 
+        public static int GetMax(this Enum value) {
+            Type type = value.GetType();
+            string name = Enum.GetName(type, value);
+            if (name != null) {
+                FieldInfo field = type.GetField(name);
+                if (field != null) {
+                    MaxAttribute attr = Attribute.GetCustomAttribute(field, typeof(MaxAttribute)) as MaxAttribute;
+                    if (attr != null) {
+                        return attr.Max;
+                    }
+                }
+            }
+
+            throw new ArgumentException("Max attribute not assigned to enum", nameof(value));
+        }
+
         public static string[] GetDescriptions<T>(bool sortByOrderAttribute) {
             return typeof(T).GetFields()
                             .Where(x => x.IsStatic)
@@ -173,29 +189,28 @@ namespace SavLibrary {
     }
 
     public enum ItemType {
-        [Order, Description("Candy")]
+        [Order, Description("Candy"), Max(99)]
         Candy = 0,
-        [Order, Description("Chocolate")]
+        [Order, Description("Chocolate"), Max(99)]
         Chocolate,
-        [Order, Description("Royal Jam")]
+        [Order, Description("Royal Jam"), Max(99)]
         RoyalJam,
-        [Order, Description("Faerie Walnut")]
+        [Order, Description("Faerie Walnut"), Max(99)]
         FaerieWalnut,
-        [Order, Description("Medical Herb")]
+        [Order, Description("Medical Herb"), Max(99)]
         MedicalHerb,
-        [Order, Description("Cup of Wishes")]
+        [Order, Description("Cup of Wishes"), Max(99)]
         CupOfWishes,
-        [Order, Description("Magic Rope")]
+        [Order, Description("Magic Rope"), Max(1)]
         MagicRope,
-        [Order, Description("Flammie Drum")]
+        [Order, Description("Flammie Drum"), Max(1)]
         FlammieDrum,
-        [Order, Description("Moogle Belt")]
+        [Order, Description("Moogle Belt"), Max(1)]
         MoogleBelt,
-        [Order, Description("Minor Mallet")]
+        [Order, Description("Minor Mallet"), Max(1)]
         MinorMallet,
-        [Order, Description("Barrel")]
+        [Order, Description("Barrel"), Max(99)]
         Barrel,
-        // TODOY Unknown,
     }
 
     public enum ManaSeedType {
