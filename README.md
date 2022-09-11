@@ -1,10 +1,11 @@
-
 # Secret Of Mana Save Editor
 
 As the project name implies, this is a Save Editor for the game Secret Of Mana.  Specifically, it's for the 3D remake available on Steam.  To use the editor you can clone the repository and build it with Visual Studio, or you can download the pre-compiled binaries here (you need both):
 
-- TODO DLL Link
-- TODO EXE Link
+- [SavLibrary.dll](https://github.com/rickparrish/SecretOfManaSaveEditor/raw/master/SecretOfManaSaveEditor/bin/Debug/SavLibrary.dll)
+- [SecretOfManaSaveEditor.exe](https://github.com/rickparrish/SecretOfManaSaveEditor/raw/master/SecretOfManaSaveEditor/bin/Debug/SecretOfManaSaveEditor.exe)
+
+**NOTE: .NET 4.8 is required to run the program**
 
 ## Usage
 There's no documentation available yet, but the 30 second introduction is: Clickable elements will show the Hand icon when you hover over them, and will allow you to change something about the thing you're hovering over (ie player name, weapon level, etc).  Non-clickable elements will show the default Arrow icon.
