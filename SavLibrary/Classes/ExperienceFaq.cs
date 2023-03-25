@@ -9,20 +9,20 @@ namespace SavLibrary {
 
         static ExperienceFaq() {
             // Load the level data from Experience FAQ
-            string[] lines = Properties.Resources.Experience_FAQ.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            string[] lines = Properties.Resources.Experience_FAQ.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             CharacterLevels.Add(CharacterType.Boy, new List<Level>());
-            for (int i = 64; i <= 162; i++) {
+            for (int i = 60; i <= 158; i++) {
                 CharacterLevels[CharacterType.Boy].Add(new Level(lines[i]));
             }
 
             CharacterLevels.Add(CharacterType.Girl, new List<Level>());
-            for (int i = 278; i <= 376; i++) {
+            for (int i = 272; i <= 370; i++) {
                 CharacterLevels[CharacterType.Girl].Add(new Level(lines[i]));
             }
 
             CharacterLevels.Add(CharacterType.Sprite, new List<Level>());
-            for (int i = 171; i <= 269; i++) {
+            for (int i = 166; i <= 264; i++) {
                 CharacterLevels[CharacterType.Sprite].Add(new Level(lines[i]));
             }
         }
